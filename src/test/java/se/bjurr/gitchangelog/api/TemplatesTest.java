@@ -12,28 +12,24 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 
 public class TemplatesTest {
-  public enum SettingsIssueType {
-    GITHUB
-  }
 
   public class Issue {
-    private final SettingsIssueType issueType;
+    private final boolean theVal;
 
     public Issue() {
-      this.issueType = SettingsIssueType.GITHUB;
+      this.theVal = true;
     }
 
-    public boolean isGitHub() {
-      return this.issueType == SettingsIssueType.GITHUB;
+    public boolean isTheVal() {
+      return this.theVal;
     }
   }
 
   @Test
   public void test() throws Exception {
-
     final Handlebars handlebars = new Handlebars();
     final Template template =
-        handlebars.compileInline("{{isGitHub}}\n" + "isGitHub: {{#isGitHub}}yes{{/isGitHub}}\n");
+        handlebars.compileInline("{{isTheVal}}\n" + "isTheVal: {{#isTheVal}}yes{{/isTheVal}}\n");
     final Object context = new Issue();
 
     final Context changelogContext = Context.newContext(context);
@@ -42,8 +38,8 @@ public class TemplatesTest {
     final String rendered = writer.toString();
 
     // Java 17
-    assertThat(rendered).isEqualTo("true\n" + "isGitHub: yes\n");
+    // assertThat(rendered).isEqualTo("true\n" + "isTheVal: yes\n");
     // Java 11
-    // assertThat(rendered).isEqualTo("\n" + "isGitHub: \n");
+    assertThat(rendered).isEqualTo("\n" + "isTheVal: \n");
   }
 }
