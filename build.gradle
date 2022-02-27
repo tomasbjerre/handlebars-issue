@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+
+buildscript {
+ repositories {
+  mavenCentral()
+  mavenLocal()
+ }
+ dependencies {
+  classpath 'se.bjurr.gradle:gradle-scripts:2.+'
+ }
+}
+apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+
+
+dependencies {
+ api 'com.github.jknack:handlebars:4.3.0'
+
+ testImplementation 'junit:junit:4.12'
+ testImplementation 'org.slf4j:slf4j-simple:1.7.13'
+ testImplementation 'org.assertj:assertj-core:2.3.0'
+}
